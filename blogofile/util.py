@@ -103,7 +103,7 @@ def url_path_helper(*parts):
         return "/"
 
 
-def site_path_helper(*parts):
+def site_path_helper(*parts, **kwargs):
     """Make an absolute path on the site, appending a sequence of path parts to
     the site path.
 
@@ -122,6 +122,8 @@ def site_path_helper(*parts):
     path = url_path_helper(site_path, *parts)
     if not path.startswith("/"):
         path = "/" + path
+    if kwargs.get('trailing_slash', False) and not path.endswith('/'):
+        path += "/"
     return path
 
 
